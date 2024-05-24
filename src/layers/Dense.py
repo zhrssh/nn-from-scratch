@@ -2,10 +2,10 @@ from typing import Callable
 
 import numpy as np
 
-from .Base import Base
+from .Layer import Layer
 
 
-class Dense(Base):
+class Dense(Layer):
     def __init__(self, units: int, activation: Callable):
         super().__init__()
         self.units = units
@@ -25,3 +25,6 @@ class Dense(Base):
         X = np.matmul(input, self._weights) + self._bias
         X = self.activation(X)
         return X
+
+    def update(self, new_weights: np.ndarray, new_biases: np.ndarray):
+        raise NotImplementedError()

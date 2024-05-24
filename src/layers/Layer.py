@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 import numpy as np
 
 
-class Base(ABC):
+class Layer(ABC):
     @abstractmethod
     def build(self, input_shape: tuple[int, int]):
         """
@@ -27,5 +27,17 @@ class Base(ABC):
         ----------
         input : np.ndarray
             Numpy array input to forward pass.
+        """
+        pass
+
+    @abstractmethod
+    def update(self, new_weights: np.ndarray, new_biases: np.ndarray):
+        """
+        Updates the weights of the layer.
+
+        Parameters
+        ----------
+        new_weights : np.ndarray
+            New weights to set on the layer.
         """
         pass
