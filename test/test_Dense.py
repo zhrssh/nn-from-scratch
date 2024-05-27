@@ -38,6 +38,8 @@ class TestDense:
         print("Predictions:", y_pred)
 
     def test_dense_multiple(self):
+        print("Test Model with Forward propagation")
+
         test_input = np.random.rand(1, 10)
         print("Test input:", test_input)
 
@@ -58,3 +60,32 @@ class TestDense:
         print("Model predictions:", y_pred)
 
         assert y_pred.shape == (1, 5)
+
+    def test_dense_on_sample_dataset_without_training(self):
+        print("Test model on a sample dataset without training")
+        X = np.expand_dims(np.arange(0, 10, 1), axis=1)
+        y = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+
+        print("Test inputs:", X)
+        print("Test labels:", y)
+
+        model = Model(
+            layers=[Dense(units=5, activation=ReLU), Dense(units=1, activation=sigmoid)]
+        )
+        model.build(input_shape=(1,), loss=self.loss, optimizer=self.optimizer)
+
+        assert model.output_shape == (1, 1)
+
+        for i in range(len(X)):
+            y_pred = model.forward(X[i])
+            print("Predictions:", y_pred)
+
+        assert y_pred.shape == (1, 1)
+        assert y_pred.dtype == np.float64
+
+    def test_dense_on_sample_dataset_with_training(self):
+        print("Test model on a sample dataset with training")
+        X = np.expand_dims(np.arange(0, 10, 1), axis=1)
+        y = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+
+        raise NotImplementedError()

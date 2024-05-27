@@ -76,17 +76,6 @@ class Model:
 
         return y_pred
 
-    def add(self, layer: Layer):
-        """
-        Adds Layer to the model.
-
-        Parameters
-        ----------
-        layer : Layer
-            Layer to add to the model.
-        """
-        raise NotImplementedError()
-
     def train(self, X_train: Iterable, y_train: Iterable):
         """
         Trains the model on the passed dataset
@@ -99,6 +88,17 @@ class Model:
             Labels or Targets to use for training.
         """
         raise NotImplementedError()
+
+    def add(self, layer: Layer):
+        """
+        Adds Layer to the model.
+
+        Parameters
+        ----------
+        layer : Layer
+            Layer to add to the model.
+        """
+        self.layers.append(layer)
 
     def evaluate(self, X_test: Iterable, y_test: Iterable):
         """
