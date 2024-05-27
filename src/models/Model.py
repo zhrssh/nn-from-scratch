@@ -1,7 +1,6 @@
 from typing import Callable, Iterable
 
 import numpy as np
-
 from layers.Layer import Layer
 
 
@@ -59,6 +58,24 @@ class Model:
         # Gets the output shape of the model
         self.output_shape = self.layers[-1].output_shape
 
+    def forward(self, input: np.ndarray) -> np.ndarray:
+        """
+        Performs forward propagation on the input.
+
+        Parameters
+        ----------
+        input : np.ndarray
+            Input to forward propagate.
+        """
+        y_pred = self.layers[0].forward(input)
+        for idx, layer in enumerate(self.layers):
+            if idx == 0:
+                continue
+
+            y_pred = layer.forward(y_pred)
+
+        return y_pred
+
     def add(self, layer: Layer):
         """
         Adds Layer to the model.
@@ -67,17 +84,6 @@ class Model:
         ----------
         layer : Layer
             Layer to add to the model.
-        """
-        raise NotImplementedError()
-
-    def forward(self, input: np.ndarray):
-        """
-        Performs forward propagation on the input.
-
-        Parameters
-        ----------
-        input : np.ndarray
-            Input to forward propagate.
         """
         raise NotImplementedError()
 

@@ -19,8 +19,8 @@ class Dense(Layer):
         if len(input_shape) == 1:
             input_shape = (1, input_shape[0])
 
-        self._weights = np.random.rand(input_shape[1], self.units)
-        self._biases = np.random.rand(1, self.units)
+        self._weights = np.random.randn(input_shape[1], self.units)
+        self._biases = np.random.randn(1, self.units)
 
     def forward(self, input: np.ndarray):
         X = np.matmul(input, self._weights) + self._biases
