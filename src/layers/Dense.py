@@ -10,6 +10,7 @@ class Dense(Layer):
         super().__init__()
         self.units = units
         self.activation = activation
+        self.output_shape = (1, self.units)
 
     def __call__(self, *args, **kwargs):
         self.forward(*args, **kwargs)
@@ -19,12 +20,13 @@ class Dense(Layer):
             input_shape = (1, input_shape[0])
 
         self._weights = np.random.rand(input_shape[1], self.units)
-        self._bias = np.random.rand(1, self.units)
+        self._biases = np.random.rand(1, self.units)
 
     def forward(self, input: np.ndarray):
-        X = np.matmul(input, self._weights) + self._bias
+        X = np.matmul(input, self._weights) + self._biases
         X = self.activation(X)
         return X
 
     def update(self, new_weights: np.ndarray, new_biases: np.ndarray):
-        raise NotImplementedError()
+        self._weights = new_weights
+        self._biases = new_biases

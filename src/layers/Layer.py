@@ -4,6 +4,13 @@ import numpy as np
 
 
 class Layer(ABC):
+    def __init__(self):
+        self._weights = None
+        self._biases = None
+        self.input_shape = None
+        self.output_shape = None
+        self.activation = None
+
     @abstractmethod
     def build(self, input_shape: tuple[int, int]):
         """
